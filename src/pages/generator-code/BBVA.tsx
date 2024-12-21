@@ -29,9 +29,9 @@ const BBVA = () => {
     <div>
       <h2 className='font-bold text-blue-500'>Códigos BBVA</h2>
       <br />
-      <div className="grid grid-cols-3 gap-10">
+      <div className="md:grid grid-cols-3 gap-10">
         <FormCode data={databbva} setData={setDatabbva} idString={"BC"} />
-        <div className='col-span-2'>
+        <div className='col-span-2 mt-10 md:mt-0'>
           <DataTable data={databbva}></DataTable>
         </div>
       </div>
