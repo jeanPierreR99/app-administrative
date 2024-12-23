@@ -2,6 +2,7 @@ import { lazy, Suspense } from "react";
 import { RouteObject } from "react-router-dom";
 import AppLayout from "@/layouts/AppLayout";
 import { Loader2 } from "lucide-react";
+import Report from "@/pages/report/Report";
 
 const LoadingFallback = () => <div className="absolute left-0 w-full h-full bg-gray-100/70 z-10 flex justify-center items-center"><Loader2 className="animate-spin text-blue-500" /></div>
   ;
@@ -14,8 +15,6 @@ const Trading = lazy(() => import("@/pages/trading/Trading"));
 const Lawful = lazy(() => import("@/pages/lawful/Lawful"));
 const Accountant = lazy(() => import("@/pages/accountant/Accountant"));
 
-const BBVA = lazy(() => import("@/pages/generator-code/BBVA"));
-const IRBSA = lazy(() => import("@/pages/generator-code/IRBSA"));
 // const Login = lazy(() => import("@/pages/Login"));
 
 const withSuspense = (Component: React.ReactNode) => (
@@ -39,16 +38,6 @@ export const routes: RouteObject[] = [
       {
         path: "/generator-code",
         element: withSuspense(<GeneratorCode />),
-        children: [{
-          path: "BBVA",
-          element: withSuspense(<BBVA />),
-        },
-        {
-          path: "IRBSA",
-          element: withSuspense(<IRBSA />),
-
-        }
-        ]
       },
       {
         path: "/administrative",
@@ -65,6 +54,10 @@ export const routes: RouteObject[] = [
       {
         path: "/accountant",
         element: <Accountant />,
+      },
+      {
+        path: "/report",
+        element: <Report />,
       },
     ],
   },

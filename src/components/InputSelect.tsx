@@ -11,9 +11,10 @@ import {
 interface InputSelectProps {
     value: string | undefined;
     onChange: (value: string) => void;
+    options: any;
 }
 
-export function InputSelect({ value, onChange }: InputSelectProps) {
+export function InputSelect({ value, onChange, options }: InputSelectProps) {
     return (
         <Select value={value} onValueChange={onChange}>
             <SelectTrigger>
@@ -21,11 +22,10 @@ export function InputSelect({ value, onChange }: InputSelectProps) {
             </SelectTrigger>
             <SelectContent>
                 <SelectGroup>
-                    <SelectLabel>Región</SelectLabel>
-                    <SelectItem value="Oriente">Oriente</SelectItem>
-                    <SelectItem value="Sur">Sur</SelectItem>
-                    <SelectItem value="Norte">Norte</SelectItem>
-                    <SelectItem value="Lima">Lima</SelectItem>
+                    <SelectLabel>Asignar</SelectLabel>
+                    {options.map((data: any, index: any) =>
+                        <SelectItem key={index} value={data.value}>{data.label}</SelectItem>
+                    )}
                 </SelectGroup>
             </SelectContent>
         </Select>

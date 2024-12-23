@@ -1,8 +1,12 @@
+import DataTableUser from "@/components/DataTableUser";
+import UserModal from "@/components/UserModal";
 
 const RolesUsers = () => {
     return (
         <div>
-            RolesUsers
+            <h4 className='text-gray-500 mb-6'>Roles y Usuarios</h4>
+            <UserModal></UserModal>
+            <DataTableUser></DataTableUser>
         </div>
     );
 };

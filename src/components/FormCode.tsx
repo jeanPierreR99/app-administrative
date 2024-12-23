@@ -41,7 +41,7 @@ const FormCode = ({ data, setData, idString }: any) => {
     const nextNumber = lastCode ? extractNumber(lastCode) + 1 : 0;
     const currentDate = new Date().toISOString().split("T")[0];
 
-    const generateCode = (numInmuebles: number, nextNumber: number) => {
+    const generateCode = (numInmuebles: number, region: string, nextNumber: number) => {
         const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         let letterPart = "";
 
@@ -49,12 +49,12 @@ const FormCode = ({ data, setData, idString }: any) => {
             letterPart += letters[i];
         }
 
-        return `${idString}-${nextNumber}-${letterPart}`;
+        return `${idString}-${nextNumber}-${region}${numInmuebles > 1 ? "-" + letterPart : ""}`;
     };
 
     function onSubmit(values: z.infer<typeof FormSchema>) {
         setVisible(true);
-        const codeAux = generateCode(parseInt(values.inmuebles), nextNumber);
+        const codeAux = generateCode(parseInt(values.inmuebles), values.region, nextNumber);
         setTimeout(() => {
 
             setVisible(false);
@@ -70,7 +70,7 @@ const FormCode = ({ data, setData, idString }: any) => {
 
             toast({
                 title: "Codigo generado y guardado",
-                description: `Se Genero el código ${codeAux}`,
+                description: `Se Genero el código ${codeAux} `,
             })
         }, 3000);
     }
@@ -82,7 +82,7 @@ const FormCode = ({ data, setData, idString }: any) => {
 
     return (
         <FormProvider {...form}>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 h-fit border p-2 rounded-md">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <FormField
                     control={form.control}
                     name="code"
@@ -109,6 +109,12 @@ const FormCode = ({ data, setData, idString }: any) => {
                             <InputSelect
                                 value={watch("region")}
                                 onChange={(value) => setValue("region", value)}
+                                options={[
+                                    { value: "1", label: "Oriente" },
+                                    { value: "2", label: "Sur" },
+                                    { value: "3", label: "Norte" },
+                                    { value: "4", label: "Lima" }
+                                ]}
                             />
                         </FormItem>
                     )}
@@ -130,7 +136,7 @@ const FormCode = ({ data, setData, idString }: any) => {
                 <Button className="w-full bg-blue-500 hover:bg-blue-400" type="submit">
                     {visible ? <Loader2 className="animate-spin" /> : "Generar"}
                 </Button>
-                {code && (<h2 className='font-bold'>Codigo Generado: <span className=' bg-blue-100 p-1 px-2 rounded-lg font-normal text-blue-400'>{code}</span></h2>)}
+                {code && (<h2 className='font-bold'>Codigo Generado: <span className=' bg-blue-100 p-1 px-2 rounded-lg  text-blue-500'>{code}</span></h2>)}
             </form>
         </FormProvider>
     );

@@ -7,7 +7,7 @@ export default function AppLayout() {
     return (
         <SidebarProvider>
             <AppSidebar />
-            <main className="px-2 py-6 md:px-4 pt-0 w-full">
+            <main className="px-2 overflow-hidden py-6 md:px-4 pt-0 w-full">
                 <SidebarTrigger className="mb-2" />
                 <Toaster></Toaster>
                 <Outlet />

@@ -1,8 +1,9 @@
 function Home() {
 
   return (
-    <div className="grid md:grid-cols-2 grid-cols-1 gap-4">
-      PRINCIPAL
+    <div className='px-2'>
+      <h4 className='text-gray-500 mb-6'>INICIO</h4>
+
     </div>
   );
 }
