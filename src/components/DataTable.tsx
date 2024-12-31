@@ -25,18 +25,18 @@ const DataTable = ({ data }: any) => {
 
                 <table className="w-full">
                     <thead className="text-left">
-                        <tr className="bg-gray-100 text-sm">
-                            <th className="border-r border-gray-200 px-4 py-2">Código</th>
-                            <th className="border-r border-gray-200 px-4 py-2">Región</th>
-                            <th className="border-r border-gray-200 px-4 py-2">Fecha de creación</th>
+                        <tr className="bg-blue-50 text-sm">
+                            <th className="border-r border-gray-200 px-4 py-3">Código</th>
+                            <th className="border-r border-gray-200 px-4 py-3">Región</th>
+                            <th className="border-r border-gray-200 px-4 py-3">Fecha de creación</th>
                         </tr>
                     </thead>
                     <tbody>
                         {data.map((item: any, index: any) => (
-                            <tr key={index} className="hover:bg-gray-50 text-gray-500 text-sm">
-                                <td className="px-4 py-2 text-blue-500"><span className="bg-blue-50 text-blue-500 border rounded-sm px-2 py-[3px] border-blue-300">{item.code}</span></td>
-                                <td className="px-4 py-2">{item.region}</td>
-                                <td className="px-4 py-2">{item.create_at}</td>
+                            <tr key={index} className="hover:bg-blue-50 text-gray-500 text-sm">
+                                <td className="px-4 py-3 text-blue-500"><span className="bg-blue-50 text-blue-500 border rounded-sm px-2 py-[3px] border-blue-300">{item.code}</span></td>
+                                <td className="px-4 py-3">{item.region}</td>
+                                <td className="px-4 py-3">{item.create_at}</td>
                             </tr>
                         ))}
                     </tbody>

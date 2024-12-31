@@ -7,6 +7,7 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
+import { useRef } from "react";
 
 const columns = [
     "CARTERA", "PROPUESTA", "CODIGO ARCHIVO", "DEUDOR", "CONTEO", "CODIGO ARCHIVO GRUPAL", "UR", "UBICACIÓN",
@@ -50,12 +51,25 @@ const data = Array.from({ length: 5 }, (_, i) =>
 );
 
 const DataTableAdministrative = () => {
+
+    const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+    const handleScroll = (event: React.WheelEvent<HTMLDivElement>) => {
+        if (scrollContainerRef.current) {
+            event.preventDefault(); // Previene el scroll vertical por defecto.
+            scrollContainerRef.current.scrollLeft += event.deltaY; // Traduce el scroll vertical a horizontal.
+        }
+    };
     return (
         <div>
             <button className="bg-blue-500 text-sm hover:bg-blue-400 px-3 py-2 mb-4 rounded-md text-white">Exportar</button>
-            <div className="overflow-x-auto">
+            <div
+                ref={scrollContainerRef}
+                onWheel={handleScroll}
+                className="overflow-x-auto overflow-y-hidden max-w-full border border-gray-300"
+            >
                 <table className="w-full border border-gray-200">
-                    <thead className="bg-gray-100 text-sm">
+                    <thead className="bg-blue-50 text-sm">
                         <tr>
                             {columns.map((column, index) => (
                                 <th key={index} className="border border-gray-300 px-4 py-2">
@@ -66,7 +80,7 @@ const DataTableAdministrative = () => {
                     </thead>
                     <tbody>
                         {data.map((row, rowIndex) => (
-                            <tr key={rowIndex} className="text-sm text-gray-500 odd:bg-white even:bg-gray-50">
+                            <tr key={rowIndex} className="text-sm text-gray-500 even:bg-blue-50/50 hover:bg-blue-50">
                                 {columns.map((column, colIndex) => (
                                     <td key={colIndex} className="border border-gray-300 px-4 py-2">
                                         {row[column]}
@@ -78,21 +92,21 @@ const DataTableAdministrative = () => {
                 </table>
             </div>
             <Pagination className="justify-end text-gray-500">
-                    <PaginationContent>
-                        <PaginationItem>
-                            <PaginationPrevious href="#" />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationLink href="#">1</PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationEllipsis />
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationNext href="#" />
-                        </PaginationItem>
-                    </PaginationContent>
-                </Pagination>
+                <PaginationContent>
+                    <PaginationItem>
+                        <PaginationPrevious href="#" />
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationLink href="#">1</PaginationLink>
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationEllipsis />
+                    </PaginationItem>
+                    <PaginationItem>
+                        <PaginationNext href="#" />
+                    </PaginationItem>
+                </PaginationContent>
+            </Pagination>
         </div>
     );
 };

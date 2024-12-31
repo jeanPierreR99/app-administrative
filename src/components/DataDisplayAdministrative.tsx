@@ -1,6 +1,7 @@
-import { Search } from "lucide-react";
+import { Loader2, Search } from "lucide-react";
 import { Input } from "./ui/input";
 import { useState, useRef } from "react";
+import { Button } from "./ui/button";
 
 const columns = [
     "CARTERA", "PROPUESTA", "CODIGO ARCHIVO", "DEUDOR", "CONTEO", "CODIGO ARCHIVO GRUPAL", "UR", "UBICACIÓN",
@@ -45,76 +46,81 @@ const data = Array.from({ length: 5 }, (_, i) =>
 
 const DataDisplayAdministrative = () => {
     const [searchField, setSearchField] = useState("");
+    const [dataRegister, setDataRegister] = useState<boolean>(true)
+    const [load, setLoad] = useState<boolean>(false)
     const fieldRefs = useRef<{ [key: string]: HTMLDivElement | null }>({});
 
-    // Scroll to the corresponding field based on the input
-    const scrollToField = (field: string) => {
-        if (fieldRefs.current[field]) {
-            fieldRefs.current[field]?.scrollIntoView({ behavior: "smooth", block: "center" });
-        }
-    };
+    const filteredColumns = columns.filter((column) =>
+        column.toLowerCase().includes(searchField.toLowerCase())
+    );
 
+    const handleData = () => {
+        setLoad(true)
+        setTimeout(() => {
+            setLoad(false)
+            setDataRegister(true)
+        }, 3000);
+    }
     return (
         <div>
             <div className="flex gap-4">
-                <div className="relative mb-2 w-fit py-2 pr-1">
-                    <Input
-                        className=""
-                        placeholder="Buscar código"
-                        type="text"
-                    />
-                    <Search className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-300" />
-                </div>
-                <div className="relative mb-2 w-fit py-2 pr-1">
-                    <Input
-                        className=""
-                        placeholder="Buscar campo"
-                        type="text"
-                        value={searchField}
-                        onChange={(e) => {
-                            setSearchField(e.target.value);
-                            scrollToField(e.target.value);
-                        }}
-                    />
-                    <Search className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-300" />
+                <div className="flex gap-4 mb-2 w-fit py-2 pr-1">
+                    <div className="relative">
+                        <Input
+                            className="relative"
+                            placeholder="Buscar código"
+                            type="text"
+                        />
+                        <Search className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-300" />
+                    </div>
+                    <Button onClick={handleData} className="bg-blue-500 hover:bg-blue-400">Buscar</Button>
                 </div>
             </div>
-            <div className="md:grid grid-cols-2 gap-4">
-                {/* Primer bloque de datos */}
-                <div className="w-full">
-                    <div className="space-y-4">
-                        {columns.slice(0, Math.floor(columns.length / 2)).map((column, index) => (
-                            <div
-                                key={index}
-                                ref={(el) => (fieldRefs.current[column] = el)}
-                                className={`flex text-sm justify-between gap-4 p-2 rounded-md ${column.toLowerCase().includes(searchField.toLowerCase()) ? "bg-gray-200" : "bg-gray-100"
-                                    }`}
-                            >
-                                <span className="font-medium">{column}:</span>
-                                <span>{data[0][column]}</span>
-                            </div>
-                        ))}
-                    </div>
+            {
+                load && <div className="flex justify-center mt-4">
+                    <Loader2 className="animate-spin text-gray-400" />
                 </div>
+            }
+            {
+                dataRegister && <fieldset className='border mt-4 md:mt-0 p-2 rounded-md'>
+                    <legend className='text-gray-500 px-2 text-sm'>Registro 001293-2-ABC</legend>
 
-                {/* Segundo bloque de datos */}
-                <div className="w-full">
-                    <div className="space-y-4">
-                        {columns.slice(Math.floor(columns.length / 2)).map((column, index) => (
-                            <div
-                                key={index}
-                                ref={(el) => (fieldRefs.current[column] = el)}
-                                className={`flex justify-between text-sm gap-4 p-2 rounded-md ${column.toLowerCase().includes(searchField.toLowerCase()) ? "bg-gray-200" : "bg-gray-100"
-                                    }`}
-                            >
-                                <span className="font-medium">{column}:</span>
-                                <span>{data[0][column]}</span>
-                            </div>
-                        ))}
+                    <div className="relative mb-2 w-fit py-2 pr-1 float-right">
+                        <Input
+                            className=""
+                            placeholder="Buscar campo"
+                            type="text"
+                            value={searchField}
+                            onChange={(e) => {
+                                setSearchField(e.target.value);
+                            }}
+                        />
+                        <Search className="absolute right-5 top-1/2 -translate-y-1/2 text-gray-300" />
                     </div>
-                </div>
-            </div>
-        </div>
+
+                    <table className="table-auto w-full border border-gray-200">
+                        <thead>
+                            <tr>
+                                <th colSpan={2} className="py-2">Detalle del Registro 001293-2-ABC</th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            {filteredColumns.map((column: any, index: any) => (
+                                <tr
+                                    key={index}
+                                    ref={(el) => (fieldRefs.current[column] = el)}
+                                    className=""
+                                >
+                                    <td className="border border-gray-300 p-2 font-medium text-sm">{column}</td>
+                                    <td className="border border-gray-300 p-2 text-gray-500 text-sm">{data[0][column]}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </fieldset>
+            }
+        </div >
     );
 };
 

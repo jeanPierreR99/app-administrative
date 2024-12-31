@@ -29,22 +29,22 @@ const DataTableUser = () => {
             <div className="overflow-x-auto">
                 <table className="w-full">
                     <thead className="text-left">
-                        <tr className="text-sm bg-gray-100 border-b">
-                            <th className="border-r border-gray-200 px-4 py-2">DNI</th>
-                            <th className="border-r border-gray-200 px-4 py-2">Nombres</th>
-                            <th className="border-r border-gray-200 px-4 py-2">Apellidos</th>
-                            <th className="border-r border-gray-200 px-4 py-2">Área</th>
-                            <th className="border-r border-gray-200 px-4 py-2">Estado</th>
+                        <tr className="text-sm bg-blue-50 border-b">
+                            <th className="border-r border-gray-200 px-4 py-3">DNI</th>
+                            <th className="border-r border-gray-200 px-4 py-3">Nombres</th>
+                            <th className="border-r border-gray-200 px-4 py-3">Apellidos</th>
+                            <th className="border-r border-gray-200 px-4 py-3">Área</th>
+                            <th className="border-r border-gray-200 px-4 py-3">Estado</th>
                         </tr>
                     </thead>
                     <tbody>
                         {users.map((user, index) => (
-                            <tr key={index} className="hover:bg-gray-50 text-gray-500 text-sm">
-                                <td className="px-4 py-2">{user.dni}</td>
-                                <td className="px-4 py-2">{user.nombres}</td>
-                                <td className="px-4 py-2">{user.apellidos}</td>
-                                <td className="px-4 py-2">{user.area}</td>
-                                <td className="px-4 py-2"><span className={`${user.estado == "Activo" ? "bg-blue-50 text-blue-500 border-blue-300" : "bg-red-50 text-red-500 border-red-300"} px-3  rounded-sm py-[2px] border `}>{user.estado}</span></td>
+                            <tr key={index} className="hover:bg-blue-50 text-gray-500 text-sm">
+                                <td className="px-4 py-3">{user.dni}</td>
+                                <td className="px-4 py-3">{user.nombres}</td>
+                                <td className="px-4 py-3">{user.apellidos}</td>
+                                <td className="px-4 py-3">{user.area}</td>
+                                <td className="px-4 py-3"><span className={`${user.estado == "Activo" ? "bg-blue-50 text-blue-500 border-blue-300" : "bg-red-50 text-red-500 border-red-300"} px-3  rounded-sm py-[2px] border `}>{user.estado}</span></td>
                             </tr>
                         ))}
                     </tbody>

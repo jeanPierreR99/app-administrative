@@ -74,7 +74,7 @@ export const AppSidebar: React.FC<any> = () => {
                     `flex gap-2 w-full h-full p-1 px-2 ${isActive ? "font-bold" : ""
                     }`}
                 >
-                  <item.icon className="w-5 h-5" />
+                  {/* <item.icon className="w-5 h-5" /> */}
                   {item.label}
                 </NavLink>
               </SidebarMenuButton>
